@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Aluno, Professor, Problema, StatusResponse, Submission } from "../types";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://rbrank-backend.onrender.com/api";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -20,7 +20,7 @@ api.interceptors.request.use((config) => {
 
 export const apiService = {
   getStatus: async (): Promise<StatusResponse> => {
-    const response = await axios.get(`${API_BASE_URL}/status`);
+    const response = await api.get("/status");
     return response.data;
   },
 
