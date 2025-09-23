@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { LogOut, Trophy, Code, Users } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import logoLaranja from '/public/assets/riobrancologolaranja.png';
 
 export const Navbar: React.FC = () => {
   const { professor, logout, isAuthenticated } = useAuth();
@@ -21,7 +20,7 @@ export const Navbar: React.FC = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <img
-              src={logoLaranja}
+              src=""
               alt="Rio Branco Logo"
               className="h-10 w-auto"
             />

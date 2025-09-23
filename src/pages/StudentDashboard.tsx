@@ -17,7 +17,7 @@ export const StudentDashboard: React.FC = () => {
   useEffect(() => {
     const fetchAluno = async () => {
       if (!ra) return;
-      
+
       try {
         const alunoData = await apiService.buscarAlunoPorRA(ra);
         setAluno(alunoData);
@@ -155,7 +155,7 @@ export const StudentDashboard: React.FC = () => {
           ) : (
             <div className="space-y-3">
               {aluno.problemasResolvidos.map((problema, index) => (
-                <div 
+                <div
                   key={index}
                   className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
                 >

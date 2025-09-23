@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Clock, AlertCircle } from 'lucide-react';
@@ -44,11 +45,14 @@ export const PlatformStatus: React.FC<PlatformStatusProps> = ({ children }) => {
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-        setTimeUntilNext(`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+        setTimeUntilNext(
+          `${hours.toString().padStart(2, '0')}:${minutes
+            .toString()
+            .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+        );
       } else {
         setTimeUntilNext('00:00:00');
-        // Recarregar a página quando o tempo chegar
-        window.location.reload();
+        apiService.getStatus().then(setStatus).catch(console.error);
       }
     };
 
@@ -79,9 +83,7 @@ export const PlatformStatus: React.FC<PlatformStatusProps> = ({ children }) => {
             </CardTitle>
           </CardHeader>
           <CardContent className="text-center space-y-4">
-            <p className="text-gray-600">
-              {status?.message}
-            </p>
+            <p className="text-gray-600">{status?.message}</p>
             <div className="bg-orange-50 p-4 rounded-lg">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Clock className="w-5 h-5 text-orange-600" />

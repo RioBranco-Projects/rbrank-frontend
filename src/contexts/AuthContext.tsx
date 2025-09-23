@@ -27,17 +27,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     // Verificar se há um professor logado no localStorage
-    const savedProfessor = localStorage.getItem('professor');
-    const savedToken = localStorage.getItem('professorToken');
-    
+    const savedProfessor = localStorage.getItem('token');
+    const savedToken = localStorage.getItem('token');
+
     if (savedProfessor && savedToken) {
       try {
         const professorData = JSON.parse(savedProfessor);
         setProfessor({ ...professorData, token: savedToken });
       } catch (error) {
         console.error('Erro ao carregar dados do professor:', error);
-        localStorage.removeItem('professor');
-        localStorage.removeItem('professorToken');
+        localStorage.removeItem('token');
       }
     }
   }, []);
@@ -49,14 +48,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       nome: professorData.nome
     }));
     if (professorData.token) {
-      localStorage.setItem('professorToken', professorData.token);
+      localStorage.setItem('token', professorData.token);
     }
   };
 
   const logout = () => {
     setProfessor(null);
-    localStorage.removeItem('professor');
-    localStorage.removeItem('professorToken');
+    localStorage.removeItem('token');
   };
 
   const value = {
