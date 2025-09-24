@@ -18,17 +18,10 @@ export const Navbar: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <img
-              src=""
-              alt="Rio Branco Logo"
-              className="h-10 w-auto"
-            />
-            <div>
-              <h1 className="text-xl font-bold text-gray-800">RioBrancoRank</h1>
-              <p className="text-xs text-gray-600">Competição de Algoritmos</p>
-            </div>
-          </Link>
+          <div>
+            <h1 className="text-xl font-bold text-gray-800">RioBrancoRank</h1>
+            <p className="text-xs text-gray-600">Competição de Algoritmos</p>
+          </div>
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-6">
@@ -84,7 +77,7 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-    </nav>
+    </nav >
   );
 };
 

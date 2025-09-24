@@ -38,15 +38,6 @@ export const apiService = {
     return response.data;
   },
 
-  resolverProblema: async (data: {
-    ra: string;
-    problemaId: string;
-    solucao: string;
-  }) => {
-    const response = await api.post("/alunos/resolver-problema", data);
-    return response.data;
-  },
-
   obterRanking: async (): Promise<Aluno[]> => {
     const response = await api.get("/alunos/ranking");
     return response.data;
