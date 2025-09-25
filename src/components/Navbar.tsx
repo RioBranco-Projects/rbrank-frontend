@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { LogOut, Trophy, Code, Users } from 'lucide-react';
+import { LogOut, Trophy, Code, Users, Home } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 export const Navbar: React.FC = () => {
@@ -25,6 +25,13 @@ export const Navbar: React.FC = () => {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-6">
+            <Link
+              to="/"
+              className="flex items-center space-x-1 text-gray-700 hover:text-orange-600 transition-colors"
+            >
+              <Home className="w-4 h-4" />
+              <span>Início</span>
+            </Link>
             <Link
               to="/problemas"
               className="flex items-center space-x-1 text-gray-700 hover:text-orange-600 transition-colors"

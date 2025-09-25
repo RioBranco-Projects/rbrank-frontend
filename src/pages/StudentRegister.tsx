@@ -36,6 +36,15 @@ export const StudentRegister: React.FC = () => {
         ra: formData.ra,
         semestre: parseInt(formData.semestre)
       });
+      // o R.A do aluno tem que sempre começar com 211
+      if (formData.ra[0] !== '2' || formData.ra[1] !== '1' || formData.ra[2] !== '1') {
+        setError('RA inválido, por favor verifique seu RA');
+        return;
+      }
+      else if (formData.ra.length >= 7) {
+        setError('RA inválido, por favor verifique seu RA');
+        return;
+      }
 
       setSuccess(true);
       setTimeout(() => {
