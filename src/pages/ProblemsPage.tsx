@@ -53,7 +53,7 @@ export const ProblemsPage: React.FC = () => {
   const [success, setSuccess] = useState('');
   const [codigo, setCodigo] = useState("// escreva seu código abaixo:\n");
   const [ra, setRa] = useState("");
-
+  const [resolvidos, setResolvidos] = useState<string[]>([]);
   const { locked, secondsLeft, triggerLock } = useCooldownLock(10);
 
   useEffect(() => {
@@ -64,8 +64,25 @@ export const ProblemsPage: React.FC = () => {
     try {
       const problemasData = await apiService.listarProblemas();
       setProblemas(problemasData);
+      // buscar submissões de todos os problemas
+      for (const problema of problemasData) {
+        await fetchSubmission(problema._id);
+      }
     } catch (error: any) {
       setError('Erro ao carregar problemas');
+    } finally {
+      setLoading(false);
+    }
+  };
+  const fetchSubmission = async (id: string) => {
+    try {
+      const submissionData = await apiService.listarSubmissoes(id);
+      // se houver submissões para esse problema, adiciona no array de resolvidos
+      if (submissionData.length > 0) {
+        setResolvidos((prev) => [...prev, id]);
+      }
+    } catch (error: any) {
+      setError('Erro ao carregar submissões');
     } finally {
       setLoading(false);
     }
@@ -179,7 +196,7 @@ export const ProblemsPage: React.FC = () => {
             options={{
               readOnly: locked,
               minimap: { enabled: false },
-              fontSize: 14,
+              fontSize: 16,
               automaticLayout: true,
             }}
           />
@@ -241,9 +258,9 @@ export const ProblemsPage: React.FC = () => {
                       setShowSolution(true);
                       setError('');
                     }}
-                    disabled={showSolution || locked}
+                    disabled={showSolution || locked || resolvidos.includes(problema._id)}
                   >
-                    Resolver
+                    {resolvidos.includes(problema._id) ? "Resolvido" : "Resolver"}
                   </Button>
                 </div>
               </CardHeader>

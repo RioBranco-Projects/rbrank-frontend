@@ -4,11 +4,13 @@ import { Badge } from '../components/ui/badge';
 import { Trophy, Medal, Award, Users } from 'lucide-react';
 import { apiService } from '../services/api';
 import { Aluno } from '../types';
+import { useNavigate } from 'react-router-dom';
 
 export const RankingPage: React.FC = () => {
   const [ranking, setRanking] = useState<Aluno[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchRanking();
@@ -17,6 +19,7 @@ export const RankingPage: React.FC = () => {
   const fetchRanking = async () => {
     try {
       const rankingData = await apiService.obterRanking();
+      console.log(rankingData)
       setRanking(rankingData);
     } catch (error: any) {
       setError('Erro ao carregar ranking');
@@ -83,6 +86,8 @@ export const RankingPage: React.FC = () => {
           <CardHeader className="text-center">
             <Trophy className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
             <CardTitle>Maior Pontuação</CardTitle>
+            <CardContent>{ranking.length > 0 ? ranking[0].nomeCompleto : ''}</CardContent>
+            <CardContent> RA: {ranking.length > 0 ? ranking[0].ra : ''}</CardContent>
           </CardHeader>
           <CardContent className="text-center">
             <p className="text-3xl font-bold text-yellow-600">
@@ -128,10 +133,11 @@ export const RankingPage: React.FC = () => {
                 const position = index + 1;
                 return (
                   <div
+                    onClick={() => navigate(`/aluno/${aluno.ra}`)}
                     key={aluno._id}
-                    className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${position <= 3
-                        ? 'bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200'
-                        : 'bg-gray-50 hover:bg-gray-100'
+                    className={`flex items-center cursor-pointer justify-between p-4 rounded-lg border transition-colors ${position <= 3
+                      ? 'bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200'
+                      : 'bg-gray-50 hover:bg-gray-100'
                       }`}
                   >
                     <div className="flex items-center gap-4">
